@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SASA RoadMap</title>
+  <link rel="icon" href="image/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html">
+        <div class="logo">
+          <img src="image/로고10.png"
+          alt="SASA_RoadMap" title="SASA_RoadMap" style="width: 100%">
+        </div>
+      </a>
+      <div>
+        <h1>SASA RoadMap</h1>
+        <p class="lead">SASA에 대한 모든 것.</p>
+      </div>
+    </header>
+    
+    <main>
+      <div class="tap">
+        <div id="Toggle" class="btn">과목 로드맵</div>
+        <a href="search.html" class="btn">과목 검색</a>
+        <a href="index.html" class="btn">동아리</a>
+        <a href="index.html" class="btn">교내 시설</a>
+        <div id="Btns" class="tap-btns">
+          <a href="major.html?id=1">국어과</a>
+          <a href="major.html?id=2">사회과</a>
+          <a href="major.html?id=3">외국어과</a>
+          <a href="major.html?id=4">예술체육과</a>
+          <a href="major.html?id=5">수학과</a>
+          <a href="major.html?id=6">물리학과</a>
+          <a href="major.html?id=7">화학과</a>
+          <a href="major.html?id=8">생명과학과</a>
+          <a href="major.html?id=9">지구과학과</a>
+          <a href="major.html?id=10">정보과학과</a>
+          <a href="major.html?id=11">공학과</a>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2>소개글</h2>
+        <p>세종과학예술영재학교(SASA)에는 수없이 많은 선택지들이 마련되어 있습니다.</p>
+        <p>그 많은 선택지가 놓인 선택에 기로에 다다라서는 어떤 것이 자신에게 더 알맞은 길일까 알기 어렵습니다.</p>
+        <p>이 사이트는 SASA를 거치는, 거칠 모든 학생들을 위해 만들어졌습니다.</p>
+        <p>여기서 알게될 SASA에 대한 다양한 정보들이 도움이 되길 바랍니다.</p>
+      </div>
+      
+      <div class="card">
+        <h2>유용한 링크</h2>
+        <ul>
+          <li class="useful"><a href="https://sasa.sjeduhs.kr">SASA 공식 홈페이지</a></li>
+          <li class="useful"><a href="https://class.sasa.hs.kr">달빛매니저</a></li>
+          <li class="useful"><a href="https://sasadomi.hs.kr">사사도미</a></li>
+          <li class="useful"><a href="https://docs.google.com/spreadsheets/d/113Aiqs1orGWkKfqmNz8rZqdhTvrIQhKxKhmcwsb5E_A/edit?usp=sharing">수강신청 시뮬레이터</a></li>
+        </ul>
+        <p>글자를 누르면 이동합니다.</p>
+      </div>
+    </main>
+    
+    <footer>
+      © <span id="year"></span> NULL
+    </footer>
+  </div>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const toggleBtn = document.getElementById('Toggle');
+    const Btns = document.getElementById('Btns');
+    toggleBtn.addEventListener('click', ()=>{
+      Btns.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

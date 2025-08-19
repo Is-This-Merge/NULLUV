@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전공별 과목 트리</title>
+  <link rel="icon" href="image/icon.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search_style.css">
+  <style>
+    @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+    body { font-family: Pretendard-Regular, Arial, sans-serif; background-color: #fff; margin: 0; padding: 20px; }
+    h1 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; table-layout: fixed; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; vertical-align: top; }
+    th { background: #eef2ff; }
+    .subject-link { color: black; text-decoration: none;}
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+        <div class="logo">
+          <img src="image/로고10.png"
+          alt="SASA_RoadMap" title="SASA_RoadMap" style="width:100%">
+        </div>
+      </a>
+      <h1 id="majorTitle"></h1>
+  </header>
+  <table id="historyTable">
+      <thead>
+        <tr id="headerRow"></tr>
+      </thead>
+      <tbody id="bodyRows"></tbody>
+    </table>
+
+  <script src="data.js"></script>
+  <script src="tree.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const majorId = parseInt(params.get('id'), 10);
+    const major = majors.find(s => s.id === majorId);
+
+    if (major) {
+      document.getElementById('majorTitle').innerHTML = `${major.name} 과목 로드맵`;
+
+      const headerRow = document.getElementById('headerRow');
+      const body = document.getElementById('bodyRows');
+
+      major.children.forEach((child, idx) => {
+        const th = document.createElement('th');
+        th.textContent = `${idx/2 - (idx%2)/2 + 1}학년 ${(idx+2)%2+1}학기`;
+        headerRow.appendChild(th);
+      });
+
+      const columns = major.children.map(child =>
+        child
+          .filter(id => id && id !== 0)
+          .map(id => {
+            const subject = subjects.find(s => s.id === id);
+            return subject ? [subject.name, subject.id] : "";
+          })
+      );
+
+      const maxRows = Math.max(...columns.map(col => col.length));
+
+      for (let row = 0; row < maxRows; row++) {
+        const tr = document.createElement('tr');
+        columns.forEach(col => {
+          const td = document.createElement('td');
+          if (col[row]) {
+            td.innerHTML = `
+            <a href="subject_detail.html?id=${col[row][1]}&from=${major.id}" class="subject_card" style="text-align:left">
+              <div>
+                <strong>${col[row][0]}<br>
+                <span class="badge">${subjects.find(s => s.id === col[row][1]).credits}학점</span>
+                <span class="badge2">${subjects.find(s => s.id === col[row][1]).necessary}</span></strong>
+              </div>
+              <div style="text-align:right">
+                <small style="color:gray">상세 보기</small>
+              </div>
+            </a>`;
+          }
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SASA RoadMap</title>
+  <link rel="icon" href="image/icon.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search_style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html">
+        <div class="logo">
+          <img src="image/로고10.png"
+          alt="SASA_RoadMap" title="SASA_RoadMap" style="width:100%">
+        </div>
+      </a>
+      <div>
+        <h1>과목 검색</h1>
+        <p class="lead">과목들을 검색하고 세부 사항을 살펴보세요.</p>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <div style="flex:2">
+        <div class="filter">
+          <input type="search" id="searchInput" placeholder="과목명 검색">
+          <select id="gradeFilter">
+            <option value="all">전체 학년</option>
+            <option value="1">1학년</option>
+            <option value="2">2학년</option>
+            <option value="3">3학년</option>
+          </select>
+          <select id="deptFilter">
+            <option value="all">전체 교과군</option>
+            <option value="korean">국어과</option>
+            <option value="society">사회과</option>
+            <option value="foreign">외국어과</option>
+            <option value="artpe">예술체육과</option>
+            <option value="math">수학과</option>
+            <option value="physics">물리학과</option>
+            <option value="chemistry">화학과</option>
+            <option value="biology">생명과학과</option>
+            <option value="earth">지구과학과</option>
+            <option value="information">정보과학과</option>
+            <option value="engineering">공학과</option>
+            <option value="fusion">융합교과</option>
+          </select>
+          <select id="necessaryFilter">
+            <option value="all">전체 선택</option>
+            <option value="필수">필수</option>
+            <option value="기본선택">기본선택</option>
+            <option value="자율선택">자율선택</option>
+          </select>
+        </div>
+        <div id="curriculum" style="margin-top:20px"></div>
+      </div>
+
+    <div syle="flex:1">
+      <div class="curriculum" style="flex:1; height:200px">
+        <h3>참고사항</h3>
+          <li style="margin: 10px">*은 AP과목</li> 
+          <li style="margin: 10px">(+1)은 학점보다 시수가 1시간 더 많음</li>
+          <li style="margin: 10px">재수강은 고려하지 않음</li>
+          <li style="margin: 10px">내부 데이터 미구현</li>
+      </div>
+      <br>
+      <div class="curriculum" style="flex:1">
+        <h3>연구활동</h3>
+        <table style="width:100%; border-collapse:collapse; text-align:center;">
+          <thead>
+          <tr style="background:#eef2ff;">
+            <th>학년/학기</th>
+            <th>과목명</th>
+            <th>이수학점</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr><td>1학년 1학기</td><td>창의탐구Ⅰ</td><td>3</td></tr>
+            <tr><td>1학년 2학기</td><td>창의탐구Ⅱ</td><td>3</td></tr>
+            <tr><td>1학년 2학기</td><td>인문자연탐사Ⅰ</td><td>1</td></tr>
+            <tr><td>1학년 겨울방학<br>2학년 여름방학</td><td>현장연구</td><td>4</td></tr>
+            <tr><td>2학년 1학기</td><td>자율연구Ⅰ</td><td>3</td></tr>
+            <tr><td>2학년 2학기</td><td>자율연구Ⅱ</td><td>3</td></tr>
+            <tr><td>2학년 2학기</td><td>인문자연탐사Ⅱ</td><td>1</td></tr>
+            <tr><td>3학년 1학기</td><td>졸업논문</td><td>4</td></tr>
+            <tr><td>3학년 1학기</td><td>자율연구Ⅲ(자율선택)</td><td>3</td></tr>
+            <tr><td>3학년 2학기</td><td>자율연구Ⅳ(자율선택)</td><td>3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="curriculum", style="height:250px">
+        <h3>자율설계교과</h3>
+        <table style="width:100%; border-collapse:collapse; text-align:center;">
+          <thead>
+          <tr style="background:#eef2ff;">
+            <th>학년/학기</th>
+            <th>과목명</th>
+            <th>이수학점</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr><td>2학년 2학기</td><td>프로젝트기반연구Ⅰ</td><td>2</td></tr>
+            <tr><td>3학년 1학기</td><td>프로젝트기반연구Ⅱ</td><td>2</td></tr>
+            <tr><td>3학년 2학기</td><td>프로젝트기반연구Ⅲ</td><td>2</td></tr>
+            <tr><td>2학년~3학년</td><td>무크 플랫폼 강좌</td><td>4</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    
+
+  <footer>
+    © <span id="year"></span> NULL
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  
+  <script src="data.js"></script>
+  <script>
+    const curriculumEl = document.getElementById('curriculum');
+    const searchInput = document.getElementById('searchInput');
+    const gradeFilter = document.getElementById('gradeFilter');
+    const deptFilter = document.getElementById('deptFilter');
+    const necessaryFilter = document.getElementById('necessaryFilter');
+
+    function deptLabel(code){
+      return ({korean:'국어과', society:'사회과', foreign:'외국어과', artpe:'예술체육과', math:'수학과', physics:'물리학과', chemistry:'화학과', biology:'생명과학과', earth:'지구과학과', information:'정보과학과', engineering:'공학과', fusion:'융합교과'})[code] || '기타';
+    }
+
+    function renderGrouped(list) {
+      curriculumEl.innerHTML = '';
+      if (!list.length) {
+        curriculumEl.innerHTML = '<div style="color:gray; display:flex; justify-content:center; align-items:center;">검색 결과가 없습니다.</div>';
+        return;
+      }
+      const groupedByGrade = {};
+      list.forEach(c => {
+        if (!groupedByGrade[c.grade*10+c.semester]) groupedByGrade[c.grade*10+c.semester] = [];
+        groupedByGrade[c.grade*10+c.semester].push(c);
+      });
+      Object.keys(groupedByGrade).sort((a,b) => a-b).forEach(grade => {
+        const gradeHeader = document.createElement('h2');
+        gradeHeader.className = 'grade-header';
+        gradeHeader.textContent = `${(grade-grade%10)/10}학년 ${grade%10}학기`;
+        curriculumEl.appendChild(gradeHeader);
+
+        groupedByGrade[grade].sort((a,b) => {
+          const deptOrder = {korean:1, society:2, foreign:3, artpe:4, math:5, physics:6, chemistry:7, biology:8, earth:9, information:10, engineering:11, fusion:12};
+          return deptOrder[a.dept] - deptOrder[b.dept] || a.name.localeCompare(b.name);
+        }).forEach(c => {
+          const item = document.createElement('div');
+          item.className = 'course';
+          item.innerHTML = `
+            <a href="subject_detail.html?id=${c.id}&from=0" class="subject_card">
+              <div>
+                <strong>${c.name} <span class="badge">${c.credits}학점</span> <span class="badge2">${c.necessary}</span></strong>
+                <br>(${deptLabel(c.dept)})
+              </div>
+              <div style="text-align:right">
+                <small style="color:gray">상세 보기</small>
+              </div>
+            </a>
+          `;
+          curriculumEl.appendChild(item);
+        });
+      });
+    }
+
+    function filterAndRender(){
+      const q = searchInput.value.trim().toLowerCase();
+      const g = gradeFilter.value;
+      const d = deptFilter.value;
+      const n = necessaryFilter.value;
+      const filtered = subjects.filter(c => {
+        if(g!=='all' && String(c.grade)!==g) return false;
+        if(d!=='all' && c.dept!==d) return false;
+        if(n!=='all' && c.necessary!==n) return false;
+        if(!q) return true;
+        return c.name.toLowerCase().includes(q);
+      });
+      renderGrouped(filtered);
+    }
+
+    searchInput.addEventListener('input', filterAndRender);
+    gradeFilter.addEventListener('change', filterAndRender);
+    deptFilter.addEventListener('change', filterAndRender);
+    necessaryFilter.addEventListener('change', filterAndRender);
+
+    filterAndRender();
+  </script>
+</body>
+</html>

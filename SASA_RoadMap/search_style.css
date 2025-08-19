@@ -1,0 +1,74 @@
+.filter{
+    display: flex;
+    gap: 10px;
+    margin: 15px;
+}
+.filter select, .filter input{
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+.content-wrapper .filter, .content-wrapper #curriculum {
+    width: 100%;
+}
+.content-wrapper table th, .content-wrapper table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+}
+
+.course{
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.course:hover{
+    background: #eef2ff;
+}
+
+.badge{
+    background: #eef2ff;
+    color: #013B84;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+.badge2{
+    background: #eef2ff;
+    color: #23BAEF;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+
+h2.grade-header{
+    margin-top: 20px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 4px;
+}
+.curriculum{
+    background: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    height: 450px;
+    overflow: auto;
+}
+
+.subject_card{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="image/icon.png">
+  <title>과목 상세 정보</title>
+  <style>
+    @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+    body { font-family: Pretendard-Regular, Arial, sans-serif; background-color: #fff; margin: 0; padding: 20px; }
+    h1 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff;}
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background: #eef2ff; }
+    .back-link { display: inline-block; margin-top: 15px; color: #013B84; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .badge{ background: #eef2ff; color: #013B84; padding: 3px 8px; border-radius: 999px; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1 id="subjectTitle"></h1>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>연도</th>
+          <th>학기</th>
+          <th>시기</th>
+          <th>시간</th>
+          <th>교사</th>
+          <th>교재</th>
+          <th>범위</th>
+          <th>키워드</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+    <div id="backlink"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const subjectId = parseInt(params.get('id'), 10);
+    const subject = subjects.find(s => s.id === subjectId);
+    const from = parseInt(params.get('from'), 10);
+
+    if(from){
+      document.getElementById('backlink').innerHTML = `
+      <a href="major.html?id=${from}" class="back-link">← 목록으로 돌아가기</a>
+    `
+    } else {
+      document.getElementById('backlink').innerHTML = `
+      <a href="search.html" class="back-link">← 목록으로 돌아가기</a>
+    `
+    }
+
+    if (subject) {
+      document.getElementById('subjectTitle').innerHTML = `${subject.name} <span class="badge">(${subject.credits}학점)</span>`;
+      const tbody = document.querySelector('#historyTable tbody');
+      if (subject.history && subject.history.length) {
+        subject.history.forEach(h => {
+          h.periods.forEach(p => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${h.year}</td>
+              <td>${h.semester}학기</td>
+              <td>${p.part}</td>
+              <td>${p.time}</td>
+              <td>${p.teacher}</td>
+              <td>${p.textbook}</td>
+              <td>${p.scope}</td>
+              <td>${p.keyword}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        });
+      } else {
+        tbody.innerHTML = `<tr><td colspan="8">기록이 없습니다.</td></tr>`;
+      }
+    } else {
+      document.getElementById('subjectTitle').textContent = '과목을 찾을 수 없습니다.';
+      document.querySelector('#historyTable').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
