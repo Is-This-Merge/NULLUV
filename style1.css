@@ -1,0 +1,5 @@
+#outer {color: blue;}
+.divAll .null {background-color: red;}
+.divAll > .null {color: white;}
+#div1 ~ .null {border-radius: 10px;}
+#div1 + .null {border: 5px black solid;}
