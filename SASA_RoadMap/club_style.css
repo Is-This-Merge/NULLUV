@@ -1,0 +1,26 @@
+.tap_club{
+    display: block;
+    background: #eef2ff;
+    border-bottom: 3px solid #ccc;
+    padding: 10px 10px;
+    margin-top: 15px;
+    border-radius: 9px;
+}
+.tap-btns_club{
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+}
+.tap-btns_club a{
+    display: inline-block;
+    margin: 6px 6px 0 0;
+    padding: 10px;
+    text-decoration: none;
+    color: #013B84;
+    font-weight: bold;
+}
+.tap-btns_club a:hover{
+    background: white;
+    color: #013B84;
+    border-radius: 9px;
+}

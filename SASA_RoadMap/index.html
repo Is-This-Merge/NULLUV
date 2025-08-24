@@ -12,8 +12,7 @@
     <header>
       <a href="index.html">
         <div class="logo">
-          <img src="image/로고10.png"
-          alt="SASA_RoadMap" title="SASA_RoadMap" style="width: 100%">
+          <img src="image/로고10.png" alt="SASA_RoadMap" title="SASA_RoadMap" style="width: 100%">
         </div>
       </a>
       <div>
@@ -26,8 +25,6 @@
       <div class="tap">
         <div id="Toggle" class="btn">과목 로드맵</div>
         <a href="search.html" class="btn">과목 검색</a>
-        <a href="index.html" class="btn">동아리</a>
-        <a href="index.html" class="btn">교내 시설</a>
         <div id="Btns" class="tap-btns">
           <a href="major.html?id=1">국어과</a>
           <a href="major.html?id=2">사회과</a>
@@ -41,6 +38,38 @@
           <a href="major.html?id=10">정보과학과</a>
           <a href="major.html?id=11">공학과</a>
         </div>
+      </div>
+
+      <div class="card">
+        <div style="display:grid; grid-template-columns:50% 50%">
+          <h2 style="vertical-align:top">급식 메뉴</h2>
+          <div style="align-content:center; text-align:right; margin-right:30px">
+            <span id="BeforeDay" style="cursor:pointer"><</span>
+            <div style="display:inline-block; align-items:center">
+              <button id="calendarBtn" style="background-color:white; border-style:none"></button>
+              <input type="date" id="mealDate">
+              <div id="date" style="display:inline-block"></div>
+            </div>
+            <span id="AfterDay" style="padding-left:15px; cursor:pointer">></span>
+          </div>
+        </div>
+        <table style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th>조식</th>
+              <th>중식</th>
+              <th>석식</th>
+            </tr>
+          </thead>
+          <tbody id="menuList" style="text-align:center">
+            <tr>
+              <td colspan="3">메뉴를 불러오는 중...</td>
+            </tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>알레르기 정보 : 1.난류 2.우유 3.메밀 4.땅콩 5.대두 6.밀 7.고등어 8.게 9.새우 10.돼지고기 11.복숭아 12.토마토 13.아황산류 14.호두 15.닭고기 16.쇠고기 17.오징어 18.조개류(굴,전복,홍합 포함) 19.잣</li>
+        </ul>
       </div>
       
       <div class="card">
@@ -75,6 +104,88 @@
     toggleBtn.addEventListener('click', ()=>{
       Btns.classList.toggle('show');
     });
+
+    //급식 메뉴
+    const NEIS_API_KEY = "a2a24062375d40febf514f14a2ef670b";
+    const ATPT_CODE = "I10";
+    const SCHOOL_CODE = "9300181";
+
+    const menuList = document.getElementById("menuList");
+    const TodayDate = document.getElementById("date");
+    const calendarBtn = document.getElementById("calendarBtn");
+    const dateInput = document.getElementById("mealDate");
+    const beforeBtn = document.getElementById("BeforeDay");
+    const afterBtn = document.getElementById("AfterDay");
+
+    let now = new Date();
+
+    function updateDisplay() {
+      let yyyy = now.getFullYear();
+      let mm = String(now.getMonth() + 1).padStart(2, '0');
+      let dd = String(now.getDate()).padStart(2, '0');
+
+      TodayDate.textContent = `${yyyy}년 ${mm}월 ${dd}일`;
+      fetchMenu(`${yyyy}${mm}${dd}`);
+    }
+
+    function fetchMenu(date) {
+      const API_URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${NEIS_API_KEY}&Type=json&ATPT_OFCDC_SC_CODE=${ATPT_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${date}`;
+
+      menuList.innerHTML = `<tr><td colspan="3">메뉴를 불러오는 중...</td></tr>`;
+
+      fetch(API_URL)
+        .then(response => response.json())
+        .then(data => {
+          const rows = data.mealServiceDietInfo?.[1]?.row;
+          if (!rows || rows.length === 0) {
+            menuList.innerHTML = `<tr><td colspan="3">급식 정보가 없습니다.</td></tr>`;
+            return;
+          }
+
+          const menu = rows.map(item => item.DDISH_NM);
+          const cal = rows.map(item => item.CAL_INFO);
+
+          menuList.innerHTML = `
+            <tr>
+              <td>${menu[0] || '-'}</td>
+              <td>${menu[1] || '-'}</td>
+              <td>${menu[2] || '-'}</td>
+            </tr>
+            <tr>
+              <td>${cal[0] ? '총 열량: ' + cal[0] : ''}</td>
+              <td>${cal[1] ? '총 열량: ' + cal[1] : ''}</td>
+              <td>${cal[2] ? '총 열량: ' + cal[2] : ''}</td>
+            </tr>
+          `;
+        })
+        .catch(error => {
+          console.error(error);
+          menuList.innerHTML = `<tr><td colspan="3">급식 메뉴 불러오기 실패!</td></tr>`;
+        });
+    }
+
+    updateDisplay();
+
+    calendarBtn.addEventListener("click", () => {
+      dateInput.click();
+    });
+
+    dateInput.addEventListener("change", () => {
+      if (!dateInput.value) return;
+      now = new Date(dateInput.value);
+      updateDisplay();
+    });
+
+    beforeBtn.addEventListener("click", () => {
+      now.setDate(now.getDate() - 1);
+      updateDisplay();
+    });
+
+    afterBtn.addEventListener("click", () => {
+      now.setDate(now.getDate() + 1);
+      updateDisplay();
+    });
   </script>
+
 </body>
 </html>
