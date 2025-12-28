@@ -1549,7 +1549,7 @@ const subjects = [
   },
   {
     id: 108,
-    name: '이산수학Ⅰ',
+    name: '이산수학',
     grade: 2,
     semester: 2,
     dept: 'math',
@@ -1559,7 +1559,7 @@ const subjects = [
   },
   {
     id: 108,
-    name: '이산수학Ⅰ',
+    name: '이산수학',
     grade: 3,
     semester: 2,
     dept: 'math',
