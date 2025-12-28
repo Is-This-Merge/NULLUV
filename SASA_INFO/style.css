@@ -118,6 +118,7 @@ main{
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        word-break: break-all;
     }
     th, td{
         border: 1px solid var(--muted);
